@@ -19,7 +19,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-6%6mav$!dx%vi*6*!+6_=2v#k6(yy=$25_#gr$a_j%*aai$)15'
+SECRET_KEY = 'django-insecure-tlnlibz@m!awurscx53ksohsn@x%@!^o(8z9bsb6^9xoe=d3b7'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -37,11 +37,17 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'courses.apps.CoursesConfig',
     'ckeditor',
-    'ckeditor_uploader'
-
+    'ckeditor_uploader',
+    'debug_toolbar',
+    'rest_framework',
+    'drf_yasg'
 ]
 
+CKEDITOR_UPLOAD_PATH = "ckeditor/images/"
+
+
 MIDDLEWARE = [
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -49,6 +55,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
 ]
 
 import pymysql
@@ -87,11 +94,13 @@ DATABASES = {
     }
 }
 
+INTERNAL_IPS = [
+    "127.0.0.1",
+]
+
 MEDIA_ROOT = '%s/courses/static/' % BASE_DIR
 
 AUTH_USER_MODEL = 'courses.User'
-
-CKEDITOR_UPLOAD_PATH = "ckeditor/images/"
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
